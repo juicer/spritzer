@@ -1,0 +1,74 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="/">Spritzer</a>
+      <ul class="nav">
+      <% @environments.each do |environment| %>
+      <% if @active == environment %>
+      <li class="active"><a href="/<%= environment %>/"><%= environment %></a></li>
+      <% else %>
+      <li><a href="/<%= environment %>"><%= environment %></a></li>
+      <% end %>
+      <% end %>
+      <form class="navbar-search" method="post" action="/<%= @active %>/search/1">
+      <input type="text" class="search-query" id="package" name="package" placeholder="Package Search" />
+      </form>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2">
+      <% if @repos.length != 0 %>
+      <ul class="nav nav-tabs nav-stacked">
+      <% @repos.each do |repo| %>
+      <li><a href="http://pulp-gca01.util.phx1.redhat.com/pulp/repos/<%= @active %>/<%= repo['display_name'] %>"><%= repo["display_name"] %></a></li>
+      <% end %>
+      <% end %>
+      </ul>
+    </div>
+    <div class="span10">
+      <h3>Package Search:</h3>
+      <% if @paginate %>
+      <div class="pagination">
+	<ul>
+	  <% if @active_page.to_i == 1 %>
+	  <li class="disabled"><a href="#">Prev</a></li>
+	  <% else %>
+	  <li><%= link_to('Prev', "/#{@active}/search/#{@active_page.to_i - 1}/#{@package}/l/#{@packages.first['filename']}") %></li>
+	  <% end %>
+
+	  <% for page in 1..@num_pages %>
+	  <% if page.to_s == @active_page %>
+	  <li class="active"><a href="/<%= @active %>/search/<%= page %>/p/<%= @package %>"><%= page %></a></li>
+	  <% elsif page < @active_page.to_i %>
+	  <li><a href="/<%= @active %>/search/<%= page %>/<%= @package %>/p/<%= @packages.first['filename'] %>/"><%= page %></a></li>
+	  <% elsif page > @active_page.to_i %>
+	  <li><a href="/<%= @active %>/search/<%= page %>/<%= @package %>/p/<%= @packages.last['filename'] %>/"><%= page %></a></li>
+	  <% end %>
+	  <% end %>
+
+	  <% if @active_page.to_i == @num_pages %>
+	  <li class="disabled"><a href="#">Next</a></li>
+	  <% else %>
+	  <li><%= link_to('Next', "/#{@active}/search/#{@active_page.to_i + 1}/#{@package}/g/#{@packages.last['filename']}/", :trailing_slash => true) %></li>
+	  <% end %>
+	</ul>
+      </div>
+      <% end %>
+      <% if @packages.length != 0 %>
+      <table class="table-striped" cellpadding="10" width="70%">
+	<tr>
+	  <td><b>Package</b></td>
+	</tr>
+	<% @packages.each do |package| %>
+	<tr>
+	  <td><%= link_to("#{package['filename']}", "/#{@active}/package/#{package['filename']}") %></td>
+	</tr>
+	<% end %>
+	<% end %>
+      </table>
+    </div>
+  </div>
+</div>

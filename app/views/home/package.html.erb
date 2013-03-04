@@ -1,0 +1,50 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="/">Spritzer</a>
+      <ul class="nav">
+      <% @environments.each do |environment| %>
+      <% if @active == environment %>
+      <li class="active"><a href="/<%= environment %>"><%= environment %></a></li>
+      <% else %>
+      <li><a href="/<%= environment %>"><%= environment %></a></li>
+      <% end %>
+      <% end %>
+      <form class="navbar-search" method="post" action="/<%= @active %>/search/1">
+      <input type="text" class="search-query" id="package" name="package" placeholder="Package Search" />
+      </form>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2">
+      <% if @repos.length != 0 %>
+      <ul class="nav nav-tabs nav-stacked">
+      <% @repos.each do |repo| %>
+      <li><a href="http://pulp-gca01.util.phx1.redhat.com/pulp/repos/<%= @active %>/<%= repo['display_name'] %>"><%= repo["display_name"] %></a></li>
+      <% end %>
+      <% end %>
+      </ul>
+    </div>
+    <div class="span10">
+      <h1><%= @packageinfo["name"] %></h1>
+      <p><b>Description:</b> <%= @packageinfo["description"] %></p>
+      <p><b>Filename:</b> <%= @packageinfo["filename"] %></p>
+      <p><b>Version:</b> <%= @packageinfo["version"] %></p>
+      <p><b>Release:</b> <%= @packageinfo["release"] %></p>
+      <p><b>Epoch:</b> <%= @packageinfo["epoch"] %></p>
+      <p><b>Checksum:</b> <%= @packageinfo["checksum"] %> <b><%= @packageinfo["checksumtype"]%></b></p>
+      <p><b>License:</b> <%= @packageinfo["license"] %></p>
+      <p><b>Buildhost:</b> <%= @packageinfo["buildhost"] %></p>
+      <p><b>Vendor:</b> <%= @packageinfo["vendor"] %></p>
+      <p><b>Changelog:</b></p>
+      <pre class="pre-scrollable">
+<% @packageinfo["changelog"].each do |entry| %>
+<%= entry[1] %> <%= entry[2] %>
+<% end %>
+      </pre>
+    </div>
+  </div>
+</div>

@@ -29,6 +29,9 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     arel (3.0.2)
+    bson (1.8.2)
+    bson_ext (1.8.2)
+      bson (~> 1.8.2)
     builder (3.0.4)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -53,6 +56,8 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.21)
     minitest (4.6.2)
+    mongo (1.8.2)
+      bson (~> 1.8.2)
     multi_json (1.6.1)
     mysql2 (0.3.11)
     polyglot (0.3.3)
@@ -109,9 +114,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bson_ext
   coffee-rails (~> 3.2.1)
   jquery-rails
   minitest
+  mongo
   mysql2
   rack (>= 1.4.5)
   rails (= 3.2.12)
