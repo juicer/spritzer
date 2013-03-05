@@ -4,7 +4,6 @@ RailsApp::Application.routes.draw do
   match '/:env/package/:package' => "home#package", :constraints => {:package => /.*(rpm)?/, :format => false}
   match '/:env/search/:page' => "home#search"
   match '/:env/search/:page/:package/:op/:ref/' => "home#search", :constraints => {:ref => /.*(rpm)?/, :format => false}
-  match 'search' => "home#search"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
