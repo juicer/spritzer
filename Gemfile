@@ -50,3 +50,5 @@ gem 'minitest'
 gem 'mongo'
 
 gem 'bson_ext'
+
+gem 'therubyracer'
