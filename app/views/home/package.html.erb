@@ -33,7 +33,7 @@
       <p><b>Repos:</b></p>
       <ul>
       <% @packageinfo["repos"].each do |repo| %>
-      <li><a href="http://<%= @config['pulp_host'] %>/pulp/repos/<%= @active %>/<%= repo %>/<%= @packageinfo['filename'] %>"><%= repo %></p></li>
+      <li><a href="http://<%= @config['pulp_host'] %>/pulp/repos/<%= @active %>/<%= repo %>/<%= @packageinfo['filename'] %>"><%= repo %></a></li>
       <% end %>
       </ul>
       <p><b>Description:</b> <%= @packageinfo["description"] %></p>
