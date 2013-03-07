@@ -16,7 +16,7 @@ class HomeController < ApplicationController
     @environments = ['re','qa','stage','prod']
     @active = params[:env]
     @package = params[:package]
-    @packageinfo = get_package_info(@package, env)
+    @packageinfo = get_package_info(@package, @active)
     @repos = get_repos(@active)
 
     respond_to do |format|

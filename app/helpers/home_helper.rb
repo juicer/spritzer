@@ -22,7 +22,7 @@ module HomeHelper
               "description", \
               "filename"]
 
-    return db(env)['units_rpm'].find({"filename" => package}, fields).to_a[0]
+    return db(env)['units_rpm'].find({"filename" => package}, :fields => fields).to_a[0]
   end
 
   def get_repos(env)
