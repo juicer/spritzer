@@ -8,7 +8,8 @@ module HomeHelper
   end
 
   def get_package_info(package, env)
-    fields = ["name", \
+    fields = [ "_id", \
+              "name", \
               "license", \
               "release", \
               "version", \
@@ -22,7 +23,14 @@ module HomeHelper
               "description", \
               "filename"]
 
-    return db(env)['units_rpm'].find({"filename" => package}, :fields => fields).to_a[0]
+    package_info = db(env)['units_rpm'].find({"filename" => package}, :fields => fields).to_a[0]
+
+    # determine which repos package is in by checking the
+    # repo_content_units collection for documents which match unit_id
+    # to the package id
+    package_info["repos"] = db(env)['repo_content_units'].find({"unit_id" => package_info["_id"]}, \
+                                                               :fields => ["repo_id"]).to_a.collect {|repo| repo["repo_id"].gsub("-#{env}", "")}
+    return package_info
   end
 
   def get_repos(env)

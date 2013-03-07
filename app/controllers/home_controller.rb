@@ -10,6 +10,7 @@ class HomeController < ApplicationController
       @active = 're'
     end
     @repos = get_repos(@active)
+    @config = Spritzer[@active]
   end
 
   def package
@@ -18,6 +19,7 @@ class HomeController < ApplicationController
     @package = params[:package]
     @packageinfo = get_package_info(@package, @active)
     @repos = get_repos(@active)
+    @config = Spritzer[@active]
 
     respond_to do |format|
       format.html # package.html.erb
@@ -28,7 +30,7 @@ class HomeController < ApplicationController
     @environments = ['re','qa','stage','prod']
     @active = params[:env]
     @package = params[:package]
-
+    @config = Spritzer[@active]
     @repos = get_repos(@active)
 
     if params[:page]
