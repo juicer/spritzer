@@ -28,7 +28,7 @@ module HomeHelper
     # determine which repos package is in by checking the
     # repo_content_units collection for documents which match unit_id
     # to the package id
-    package_info["repos"] = db(env)['repo_content_units'].find({"unit_id" => package_info["_id"]}, \
+    package_info["repos"] = db(env)['repo_content_units'].find({"unit_id" => package_info["_id"], "repo_id" => Regexp.new(".*-#{env}")}, \
                                                                :fields => ["repo_id"]).to_a.collect {|repo| repo["repo_id"].gsub("-#{env}", "")}
     return package_info
   end

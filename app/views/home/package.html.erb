@@ -45,12 +45,14 @@
       <p><b>License:</b> <%= @packageinfo["license"] %></p>
       <p><b>Buildhost:</b> <%= @packageinfo["buildhost"] %></p>
       <p><b>Vendor:</b> <%= @packageinfo["vendor"] %></p>
+      <% if @packageinfo["changelog"] %>
       <p><b>Changelog:</b></p>
       <pre class="pre-scrollable">
 <% @packageinfo["changelog"].each do |entry| %>
 <%= entry[1] %> <%= entry[2] %>
 <% end %>
       </pre>
+      <% end %>
     </div>
   </div>
 </div>
