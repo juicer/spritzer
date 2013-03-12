@@ -1,32 +1,8 @@
-<div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="/">Spritzer</a>
-      <ul class="nav">
-      <% @environments.each do |environment| %>
-      <% if @active == environment %>
-      <li class="active"><a href="/<%= environment %>"><%= environment %></a></li>
-      <% else %>
-      <li><a href="/<%= environment %>"><%= environment %></a></li>
-      <% end %>
-      <% end %>
-      <form class="navbar-search" method="post" action="/<%= @active %>/search/1">
-      <input type="text" class="search-query" id="package" name="package" placeholder="Package Search" />
-      </form>
-      </ul>
-    </div>
-  </div>
-</div>
+<%= render 'nav' %>
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span2">
-      <% if @repos.length != 0 %>
-      <ul class="nav nav-tabs nav-stacked">
-      <% @repos.each do |repo| %>
-      <li><a href="http://<%= @config['pulp_host'] %>/pulp/repos/<%= @active %>/<%= repo['display_name'] %>"><%= repo["display_name"] %></a></li>
-      <% end %>
-      <% end %>
-      </ul>
+      <%= render 'lnav' %>
     </div>
     <div class="span10">
     </div>

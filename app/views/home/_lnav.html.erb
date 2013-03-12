@@ -1,0 +1,7 @@
+<% if @repos.length != 0 %>
+<ul class="nav nav-tabs nav-stacked">
+  <% @repos.each do |repo| %>
+  <li><a href="http://<%= @config['pulp_host'] %>/pulp/repos/<%= @active %>/<%= repo['display_name'] %>"><%= repo["display_name"] %></a></li>
+  <% end %>
+  <% end %>
+</ul>
