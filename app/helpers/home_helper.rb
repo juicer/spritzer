@@ -80,4 +80,18 @@ module HomeHelper
                                      :fields => ["id"]).count()
   end
 
+  def get_recent_packages(name, env)
+    package_ids = db(env)['repo_content_units'].find({"repo_id" => "#{name}-#{env}", 'unit_type_id' => 'rpm'}, :fields => ['created', 'unit_id']).sort({'created' => 1}).limit(10).to_a
+    
+    packages = []
+    package_ids.each do |id|
+      package = db(env)['units_rpm'].find({'_id' => id['unit_id']}, :fields => ['filename', 'created']).to_a[0]
+      package['created'] = DateTime.parse(id['created'])
+      packages.push(package)
+    end
+
+    puts packages
+    
+    return packages
+  end
 end

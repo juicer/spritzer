@@ -66,4 +66,17 @@ class HomeController < ApplicationController
       format.html # search.html.erb
     end
   end
+
+  def repo
+    @environments = ['re','qa','stage','prod']
+    @active = params[:env]
+    @repo = params[:repo]
+    @config = Spritzer[@active]
+    @repos = get_repos(@active)
+    @recently_added = get_recent_packages(@repo, @active)
+
+    respond_to do |format|
+      format.html # repo.html.erb
+    end
+  end
 end
