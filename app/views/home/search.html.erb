@@ -39,14 +39,22 @@
 	  <li><%= link_to('Prev', "/#{@active}/search/#{@active_page.to_i - 1}/#{@package}/l/#{@packages.first['filename']}") %></li>
 	  <% end %>
 
+	  <% if @active_page.to_i > 5 %>
+	  <li class="disabled"><a href="#">...</a></li>
+	  <% end %>
+
 	  <% for page in 1..@num_pages %>
 	  <% if page.to_s == @active_page %>
 	  <li class="active"><a href="/<%= @active %>/search/<%= page %>/p/<%= @package %>"><%= page %></a></li>
-	  <% elsif page < @active_page.to_i %>
+	  <% elsif page < @active_page.to_i and (page > (@active_page.to_i - 5)) %>
 	  <li><a href="/<%= @active %>/search/<%= page %>/<%= @package %>/p/<%= @packages.first['filename'] %>/"><%= page %></a></li>
-	  <% elsif page > @active_page.to_i %>
+	  <% elsif page > @active_page.to_i and (page < (@active_page.to_i + 5)) %>
 	  <li><a href="/<%= @active %>/search/<%= page %>/<%= @package %>/p/<%= @packages.last['filename'] %>/"><%= page %></a></li>
 	  <% end %>
+	  <% end %>
+
+	  <% if @active_page.to_i < (@num_pages - 5) %>
+	  <li class="disabled"><a href="#">...</a></li>
 	  <% end %>
 
 	  <% if @active_page.to_i == @num_pages %>
