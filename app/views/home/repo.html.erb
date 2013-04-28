@@ -1,39 +1,29 @@
-<%= render 'nav' %>
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span2">
-      <%= render 'lnav' %>
-    </div>
-    <div class="span10">
-      <table width="100%" cellpadding="1" >
-	<tr>
-	  <td>
-	    <h1><%= @repo %></h1>
-	  </td>
-	  <td>
-	    <p>
-	      <a href="http://<%= @config['pulp_host'] %>/pulp/repos/<%= @active %>/<%= @repo %>">
-		Yum Repository
-	      </a>
-	    </p>
-	  </td>
-      </table>
-	  
-      
-      <table class="table-striped" cellpadding="10" width="80%">
-	<tr>
-	  <td><b>Recently Added</b></td>
-	  <td><b>Created</b></td>
-	</tr>
-	<% if @recently_added.length > 0 %>
-	<% @recently_added.each do |package| %>
-	<tr>
-	  <td><%= link_to("#{package['filename']}", "/#{@active}/package/#{package['filename']}") %></td>
-	  <td><%= package['created'].strftime('%a %d %b %Y %I:%M:%S %p') %>
-	</tr>
-	<% end %>
-	<% end %>
-      </table>
-    </div>
-  </div>
-</div>
+<table width="100%" cellpadding="1" >
+  <tr>
+    <td>
+      <h1><%= @repo %></h1>
+    </td>
+    <td>
+      <p>
+	<a href="http://<%= @config['pulp_host'] %>/pulp/repos/<%= @active %>/<%= @repo %>">
+	  Yum Repository
+	</a>
+      </p>
+    </td>
+</table>
+
+
+<table class="table-striped" cellpadding="10" width="80%">
+  <tr>
+    <td><b>Recently Added</b></td>
+    <td><b>Created</b></td>
+  </tr>
+  <% if @recently_added.length > 0 %>
+  <% @recently_added.each do |package| %>
+  <tr>
+    <td><%= link_to("#{package['filename']}", "/#{@active}/package/#{package['filename']}") %></td>
+    <td><%= package['created'].strftime('%a %d %b %Y %I:%M:%S %p') %>
+  </tr>
+  <% end %>
+  <% end %>
+</table>
