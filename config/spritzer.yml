@@ -1,0 +1,22 @@
+defaults: &defaults
+    username: readonly
+
+re:
+    pulp_host: pulp-gca01.util.phx1.redhat.com
+    database_host: mongodb-gca01.util.phx1.redhat.com
+    <<: *defaults
+    
+qa:
+    pulp_host: pulp-gca01.util.phx1.redhat.com
+    database_host: mongodb-gca01.util.phx1.redhat.com
+    <<: *defaults
+
+stage:
+    pulp_host: pulp-gca01.util.phx1.redhat.com
+    database_host: mongodb-gca01.util.phx1.redhat.com
+    <<: *defaults
+
+prod:
+    pulp_host: pulp-gca01.util.phx1.redhat.com
+    database_host: mongodb-gca01.util.phx1.redhat.com
+    <<: *defaults

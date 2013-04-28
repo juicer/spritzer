@@ -14,5 +14,5 @@
 /log/*.log
 /tmp
 
-# Ignore config file
-/config/spritzer.yml
+# Emacs junk
+*~
