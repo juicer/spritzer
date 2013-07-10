@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @cart.name %></h1>
+
+<p>
+  <b>Manifest:</b>
+  <pre>
+    <%= @pretty %>
+  </pre>
+</p>
+
+
+<%= link_to 'Edit', edit_cart_path(@cart) %> |
+<%= link_to 'Back', carts_path %>

@@ -1,0 +1,21 @@
+<h1>Listing carts</h1>
+
+<table class="table-striped" cellpadding="5">
+  <tr>
+    <td><b>Name</b></td>
+    <td><b>Created</b></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+
+<% @carts.each do |cart| %>
+  <tr>
+    <td><%= cart.name %></td>
+    <td><%= cart.created_at.localtime %></td>
+    <td><%= link_to 'Show', cart %></td>
+    <td><%= link_to 'Edit', edit_cart_path(cart) %></td>
+    <td><%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>

@@ -51,4 +51,6 @@ gem 'mongo'
 
 gem 'bson_ext'
 
-gem 'therubyracer'
+gem 'psych'
+
+gem 'json'

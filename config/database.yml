@@ -11,7 +11,9 @@ development:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: mysql2
+  database: <%=ENV['OPENSHIFT_APP_NAME']%>
   pool: 5
-  timeout: 5000
+  username: <%= ENV['OPENSHIFT_MYSQL_DB_USERNAME'] %>
+  password: <%= ENV['OPENSHIFT_MYSQL_DB_PASSWORD'] %>
+  socket: <%= ENV['OPENSHIFT_MYSQL_DB_SOCKET'] %>

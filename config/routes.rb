@@ -1,5 +1,8 @@
 RailsApp::Application.routes.draw do
+  resources :carts
+
   root :to => "home#index"
+  match '/carts' => "carts#index"
   match '/:env' => "home#index"
   match '/:env/package/:package' => "home#package", :constraints => {:package => /.*(rpm)?/, :format => false}
   match '/:env/search/:page' => "home#search"

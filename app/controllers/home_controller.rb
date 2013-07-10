@@ -2,37 +2,22 @@ class HomeController < ApplicationController
   include HomeHelper
   include Spritzer
 
+  before_filter :configs
+
   def index
-    @environments = ['re','qa','stage','prod']
-    if params[:env]
-      @active = params[:env]
-    else
-      @active = 're'
+    respond_to do |format|
+      format.html # index.html.erb
     end
-    @repos = get_repos(@active)
-    @config = Spritzer[@active]
   end
 
   def package
-    @environments = ['re','qa','stage','prod']
-    @active = params[:env]
-    @package = params[:package]
     @packageinfo = get_package_info(@package, @active)
-    @repos = get_repos(@active)
-    @config = Spritzer[@active]
-
     respond_to do |format|
       format.html # package.html.erb
     end
   end
 
   def search
-    @environments = ['re','qa','stage','prod']
-    @active = params[:env]
-    @package = params[:package]
-    @config = Spritzer[@active]
-    @repos = get_repos(@active)
-
     if params[:page]
       @active_page = params[:page]
       @count = package_count(@package, @active)
@@ -68,15 +53,22 @@ class HomeController < ApplicationController
   end
 
   def repo
-    @environments = ['re','qa','stage','prod']
-    @active = params[:env]
-    @repo = params[:repo]
-    @config = Spritzer[@active]
-    @repos = get_repos(@active)
     @recently_added = get_recent_packages(@repo, @active)
 
     respond_to do |format|
       format.html # repo.html.erb
     end
+  end
+
+  private
+  def configs
+    @environments = Spritzer.keys
+    if params[:env]
+      @active = params[:env]
+    else
+      @active = @environments[0]
+    end
+    @repos = get_repos(@active)
+    @config = Spritzer[@active]
   end
 end
