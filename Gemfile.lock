@@ -118,6 +118,7 @@ DEPENDENCIES
   bson_ext
   coffee-rails (~> 3.2.1)
   jquery-rails
+  json
   minitest
   mongo
   mysql2
