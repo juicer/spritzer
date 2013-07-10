@@ -51,6 +51,8 @@ gem 'mongo'
 
 gem 'bson_ext'
 
-gem 'psych'
+group :development do
+ gem 'psych'
+end
 
 gem 'json'
