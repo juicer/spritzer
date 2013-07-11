@@ -55,8 +55,8 @@ class HomeController < ApplicationController
   end
 
   def repo
-    @recently_added = get_recent_packages(@repo, @active)
     @repo = params[:repo]
+    @recently_added = get_recent_packages(@repo, @active)
     respond_to do |format|
       format.html # repo.html.erb
     end
