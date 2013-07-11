@@ -1,6 +1,10 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= @cart.name %></h1>
+
+<% if notice %>
+  <div class="container">
+    <div class="alert alert-info"><%= notice %></div>
+  </div>
+<% end %>
 
 <p>
   <b>Manifest:</b>
