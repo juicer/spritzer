@@ -11,6 +11,7 @@ class HomeController < ApplicationController
   end
 
   def package
+    @package = params[:package]
     @packageinfo = get_package_info(@package, @active)
     respond_to do |format|
       format.html # package.html.erb
@@ -18,6 +19,7 @@ class HomeController < ApplicationController
   end
 
   def search
+    @package = params[:package]
     if params[:page]
       @active_page = params[:page]
       @count = package_count(@package, @active)
