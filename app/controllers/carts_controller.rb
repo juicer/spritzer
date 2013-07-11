@@ -68,8 +68,6 @@ class CartsController < ApplicationController
   def update
     @cart = Cart.find(params[:id])
 
-    puts "THIS IS UPDATE LAWL"
-
     respond_to do |format|
       if @cart.update_attributes(params[:cart])
         format.html { redirect_to @cart, notice: 'Cart was successfully updated.' }
