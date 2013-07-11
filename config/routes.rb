@@ -1,6 +1,8 @@
 RailsApp::Application.routes.draw do
   resources :carts
 
+  match "/update_rpms" => "carts#update_rpms", :via => [:put]
+
   root :to => "home#index"
   match '/carts' => "carts#index"
   match '/:env' => "home#index"

@@ -1,0 +1,31 @@
+<%= form_tag("/update_rpms", :method => :put) do %>
+  <% if @cart.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cart.errors.count, "error") %> prohibited this cart from being saved:</h2>
+
+      <ul>
+      <% @cart.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <input type="hidden" name="id" value="<%= @cart.id %>" />
+
+  <div class="field">
+    <p><b>Name:</b></p>
+    <input type="text" name="name" value="<%= @cart.name %>" />
+  </div>
+
+  <% @rpms.each do |rpm| %>
+  <div class="field">
+    <input type="hidden" name="<%= rpm %>" value="0" />
+    <input type="checkbox" name="<%= rpm %>" value="1" checked> <%= rpm %><br>
+  </div>
+  <% end %>
+
+  <div class="actions">
+    <input type="submit" value="Submit">
+  </div>
+<% end %>

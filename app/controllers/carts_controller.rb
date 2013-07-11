@@ -21,7 +21,6 @@ class CartsController < ApplicationController
   def show
     @cart = Cart.find(params[:id])
     @manifest = JSON.parse(@cart.manifest.gsub('\'', '"'))
-    puts "manifest", @manifest
     @pretty = JSON.pretty_generate(@manifest)
     respond_to do |format|
       format.html # show.html.erb
@@ -43,6 +42,9 @@ class CartsController < ApplicationController
   # GET /carts/1/edit
   def edit
     @cart = Cart.find(params[:id])
+    @manifest = JSON.parse(@cart.manifest.gsub('\'', '"'))
+    @repo = @manifest['repo_items'].keys[0]
+    @rpms = @manifest['repo_items'][@repo].to_a
   end
 
   # POST /carts
@@ -66,8 +68,39 @@ class CartsController < ApplicationController
   def update
     @cart = Cart.find(params[:id])
 
+    puts "THIS IS UPDATE LAWL"
+
     respond_to do |format|
       if @cart.update_attributes(params[:cart])
+        format.html { redirect_to @cart, notice: 'Cart was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @cart.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update_rpms
+    @cart = Cart.find(params[:id])
+
+    @rpms = []
+    puts params
+    params.keys.each do |key|
+      if key.match('rpm') and params[key] == "1"
+        @rpms.append(key)
+      end
+    end
+    @manifest = JSON.parse(@cart.manifest.gsub('\'', '"'))
+    @repo = @manifest['repo_items'].keys[0]
+    @manifest['repo_items'][@repo] = @rpms
+
+    @manifest_str = JSON.dump(@manifest)
+
+    @cart.manifest = @manifest_str
+
+    respond_to do |format|
+      if @cart.save
         format.html { redirect_to @cart, notice: 'Cart was successfully updated.' }
         format.json { head :no_content }
       else
