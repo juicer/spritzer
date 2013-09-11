@@ -1,6 +1,7 @@
 module HomeHelper
   include Mongo
   include Spritzer
+  require 'bson'
 
   def db(env)
     "Returns a MongoClient object to be used to find operations"
@@ -43,7 +44,7 @@ module HomeHelper
     @count = db(env)['units_rpm'].find({"filename" => Regexp.new(".*#{package}.*")}, \
                                        :fields => ["filename"]).count()
     @packages = db(env)['units_rpm'].find({"filename" => Regexp.new(".*#{package}.*")}, \
-                                          :fields => ["filename"]).sort({"filename" => 1}).skip((page.to_i-1)*30).limit(30).to_a
+                                          :fields => ["filename"], :sort => "filename").skip((page.to_i-1)*30).limit(30).to_a
     return @packages.sort_by{|package| package['filename']}
   end
 
@@ -55,16 +56,16 @@ module HomeHelper
 
   def get_packages_forward(package, env, greater_than)
     return db(env)['units_rpm'].find({"filename" => Regexp.new(".*#{package}.*"), "filename" => {'$gt' => greater_than}}, \
-                                          :fields => ["filename"]).sort({"filename" => 1}).limit(30).to_a
+                                          :fields => ["filename"], :sort => "filename").limit(30).to_a
   end
 
   def get_packages_forward_last(package, env, greater_than, last)
     if last != 0
       @packages = db(env)['units_rpm'].find({"filename" => Regexp.new(".*#{package}.*"), "filename" => {'$gt' => greater_than}}, \
-                                            :fields => ["filename"]).sort({"filename" => 1}).limit(last).to_a
+                                            :fields => ["filename"], :sort => "filename").limit(last).to_a
     else
       @packages = db(env)['units_rpm'].find({"filename" => Regexp.new(".*#{package}.*"), "filename" => {'$gt' => greater_than}}, \
-                                            :fields => ["filename"]).sort({"filename" => 1}).limit(30).to_a
+                                            :fields => ["filename"], :sort => "filename").limit(30).to_a
     end
 
     return @packages
@@ -72,7 +73,7 @@ module HomeHelper
 
   def get_packages(package, env)
     return db(env)['units_rpm'].find({"filename" => Regexp.new(".*#{package}.*")}, \
-                                     :fields => ["filename"]).sort({"filename" => 1}).limit(30).to_a
+                                     :fields => ["filename"], :sort => "filename").limit(30).to_a
   end
 
   def package_count(package, env)
@@ -81,7 +82,7 @@ module HomeHelper
   end
 
   def get_recent_packages(name, env)
-    package_ids = db(env)['repo_content_units'].find({"repo_id" => "#{name}-#{env}", 'unit_type_id' => 'rpm'}, :fields => ['created', 'unit_id']).sort({'created' => 1}).limit(5).to_a
+    package_ids = db(env)['repo_content_units'].find({"repo_id" => "#{name}-#{env}", 'unit_type_id' => 'rpm'}, :fields => ['created', 'unit_id'], :sort => 'created').limit(5).to_a
     
     packages = []
     package_ids.each do |id|

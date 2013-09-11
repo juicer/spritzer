@@ -12,7 +12,6 @@ class CartsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @carts }
     end
   end
 
@@ -24,7 +23,6 @@ class CartsController < ApplicationController
     @pretty = JSON.pretty_generate(@manifest)
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @cart }
     end
   end
 
@@ -35,7 +33,6 @@ class CartsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @cart }
     end
   end
 
@@ -54,11 +51,9 @@ class CartsController < ApplicationController
 
     respond_to do |format|
       if @cart.save
-        format.html { redirect_to @cart, notice: 'Cart was successfully created.' }
-        format.json { render json: @cart, status: :created, location: @cart }
+        format.html { redirect_to @cart, :notice => 'Cart was successfully created.' }
       else
-        format.html { render action: "new" }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
+        format.html { render :action => "new" }
       end
     end
   end
@@ -70,11 +65,9 @@ class CartsController < ApplicationController
 
     respond_to do |format|
       if @cart.update_attributes(params[:cart])
-        format.html { redirect_to @cart, notice: 'Cart was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to @cart, :notice => 'Cart was successfully updated.' }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
       end
     end
   end
@@ -99,11 +92,9 @@ class CartsController < ApplicationController
 
     respond_to do |format|
       if @cart.save
-        format.html { redirect_to @cart, notice: 'Cart was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to @cart, :notice => 'Cart was successfully updated.' }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
       end
     end
   end
@@ -116,7 +107,6 @@ class CartsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to carts_url }
-      format.json { head :no_content }
     end
   end
 
