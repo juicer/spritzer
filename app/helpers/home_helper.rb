@@ -82,7 +82,7 @@ module HomeHelper
   end
 
   def get_recent_packages(name, env)
-    package_ids = db(env)['repo_content_units'].find({"repo_id" => "#{name}-#{env}", 'unit_type_id' => 'rpm'}, :fields => ['created', 'unit_id'], :sort => 'created').limit(5).to_a
+    package_ids = db(env)['repo_content_units'].find({"repo_id" => "#{name}-#{env}", 'unit_type_id' => 'rpm'}, :fields => ['created', 'unit_id'], :sort => ['created', Mongo::DESCENDING]).limit(5).to_a
     
     packages = []
     package_ids.each do |id|
@@ -90,9 +90,6 @@ module HomeHelper
       package['created'] = DateTime.parse(id['created'])
       packages.push(package)
     end
-
-    puts packages
-    
     return packages
   end
 end
