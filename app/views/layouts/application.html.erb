@@ -4,6 +4,7 @@
   <title>Spritzer</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -33,9 +34,11 @@
   <div class="row-fluid">
     <div class="span2">
       <% if @repos.length != 0 %>
-      <ul class="nav nav-tabs nav-stacked">
+      <input class="input-large search-query" id="input-repo-list" type="text" placeholder="Filter repo list">
+      <br /><br />
+      <ul id="list-repos" class="nav nav-tabs nav-stacked">
 	<% @repos.each do |repo| %>
-	<li><a href="/<%= @active %>/repo/<%= repo['display_name'] %>"><%= repo["display_name"] %></a></li>
+	<li id="list-repos"><a href="/<%= @active %>/repo/<%= repo['display_name'] %>"><%= repo["display_name"] %></a></li>
 	<% end %>
 	<% end %>
       </ul>
@@ -45,6 +48,7 @@
     </div>
   </div>
 </div>
-
+<%= javascript_include_tag "jquery" %>
+<%= javascript_include_tag "spritzer" %>
 </body>
 </html>
