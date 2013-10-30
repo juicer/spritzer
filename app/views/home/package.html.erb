@@ -1,10 +1,16 @@
 <h1><%= @packageinfo["name"] %></h1>
 <p><b>Repos:</b></p>
+<% if @packageinfo["repos"].length != 0 %>
 <ul>
   <% @packageinfo["repos"].each do |repo| %>
   <li><a href="http://<%= @config['pulp_host'] %>/pulp/repos/<%= @active %>/<%= repo %>/<%= @packageinfo['filename'] %>"><%= repo %></a></li>
   <% end %>
 </ul>
+<% else %>
+<ul>
+ <li><p>Package doesn't exist in the <%= @active %> environment. This package shares a host with an environment it does live in.</p></li>
+</ul>
+<% end %>
 <p><b>Description:</b> <%= @packageinfo["description"] %></p>
 <p><b>Filename:</b> <%= @packageinfo["filename"] %></p>
 <p><b>Version:</b> <%= @packageinfo["version"] %></p>
