@@ -22,6 +22,7 @@
 <% if @packageinfo["vendor"] != "" %>
 <p><b>Vendor:</b> <%= @packageinfo["vendor"] %></p>
 <% end %>
+<% if @packageinfo["changelog"] %>
 <% if @packageinfo["changelog"].length != 0 %>
 <p><b>Changelog:</b></p>
 <pre class="pre-scrollable">
@@ -29,4 +30,5 @@
   <%= entry[1] %> <%= entry[2] %>
   <% end %>
 </pre>
+<% end %>
 <% end %>
