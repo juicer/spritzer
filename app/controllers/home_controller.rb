@@ -5,6 +5,7 @@ class HomeController < ApplicationController
   before_filter :configs
 
   def index
+    @recently_added = get_recent_packages("", @active)
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -31,14 +32,17 @@ class HomeController < ApplicationController
       end
 
       if params[:op]
+        # Less than
         if params[:op] == "l"
           @packages = get_packages_back(@package, @active, params[:ref])
+        # Greater than
         elsif params[:op] == "g"
           if @active_page == @num_pages.to_s
             @packages = get_packages_forward_last(@package, @active, params[:ref], @count % 30)
           else
             @packages = get_packages_forward(@package, @active, params[:ref])
           end
+        # A specific page
         elsif params[:op] == 'p'
           @packages = get_package_page(@package, @active, params[:page])
         else
