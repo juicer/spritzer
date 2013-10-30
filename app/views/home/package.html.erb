@@ -13,8 +13,10 @@
 <p><b>Checksum:</b> <%= @packageinfo["checksum"] %> <b><%= @packageinfo["checksumtype"]%></b></p>
 <p><b>License:</b> <%= @packageinfo["license"] %></p>
 <p><b>Buildhost:</b> <%= @packageinfo["buildhost"] %></p>
+<% if @packageinfo["vendor"] != "" %>
 <p><b>Vendor:</b> <%= @packageinfo["vendor"] %></p>
-<% if @packageinfo["changelog"] %>
+<% end %>
+<% if @packageinfo["changelog"].length != 0 %>
 <p><b>Changelog:</b></p>
 <pre class="pre-scrollable">
   <% @packageinfo["changelog"].each do |entry| %>
