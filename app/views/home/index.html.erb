@@ -1,0 +1,15 @@
+<br />
+<table class="table-striped" cellpadding="10" width="80%">
+  <tr>
+    <td><b>Recently Added</b></td>
+    <td><b>Created</b></td>
+  </tr>
+  <% if @recently_added.length > 0 %>
+  <% @recently_added.each do |package| %>
+  <tr>
+    <td><%= link_to("#{package['filename']}", "/#{@active}/package/#{package['filename']}") %></td>
+    <td><%= package['created'].strftime('%a %d %b %Y %I:%M:%S %p') %>
+  </tr>
+  <% end %>
+  <% end %>
+</table>
