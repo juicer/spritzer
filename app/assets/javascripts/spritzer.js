@@ -2,9 +2,9 @@ function repo_list($filter){
     $('#list-repos li a').each(function(index, repo){
 	var re = new RegExp(".*" + $filter + ".*","i");
 	if (!re.test($(repo).text())){
-	    $(repo).hide();
+	    $(repo).slideUp();
 	} else {
-	    $(repo).show();
+	    $(repo).slideDown();
 	}
     })
 }
